@@ -5,7 +5,7 @@
 import { Model } from 'mongoose';
 import { ASSIGNMENT_PRIORITY } from 'src/types/assignment-priority.enums';
 
-interface IAssignmentDoument {
+interface IAssignmentDocument {
   subject: string;
   priority: ASSIGNMENT_PRIORITY;
   description?: string;
@@ -16,6 +16,7 @@ interface IAssignmentDoument {
   deadline?: Date;
   guildId: string;
 }
-type IAssignmentModel = Model<IAssignmentDoument>;
 
-export { IAssignmentModel, IAssignmentDoument };
+type IAssignmentModel = Model<IAssignmentDocument>;
+
+export { IAssignmentModel, IAssignmentDocument };
