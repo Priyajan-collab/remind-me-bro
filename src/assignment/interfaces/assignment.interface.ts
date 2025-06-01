@@ -2,14 +2,20 @@
  * i think this should be fine right?
  */
 
-export interface Assignment {
-  id: number;
+import { Model } from 'mongoose';
+import { ASSIGNMENT_PRIORITY } from 'src/types/assignment-priority.enums';
+
+interface IAssignmentDoument {
   subject: string;
-  priority: 'Very Important' | 'Important' | 'eh fine' | 'do not bother';
-  status: 'pending' | 'overDue' | 'no deadline';
+  priority: ASSIGNMENT_PRIORITY;
   description?: string;
   submitTo: string;
+  createdBy: string;
+  updatedAt: Date;
   createdAt: Date;
   deadline?: Date;
   guildId: string;
 }
+type IAssignmentModel = Model<IAssignmentDoument>;
+
+export { IAssignmentModel, IAssignmentDoument };
