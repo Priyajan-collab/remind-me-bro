@@ -21,4 +21,7 @@ export class CreateAssignmentDto {
   @IsOptional()
   @IsDateString()
   deadline?: Date;
+
+  @IsString()
+  guildId;
 }
