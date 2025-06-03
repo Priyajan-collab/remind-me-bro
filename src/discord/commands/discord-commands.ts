@@ -34,6 +34,11 @@ export class DiscordSlashCommand {
         createdBy: interaction.user.username,
         guildId: interaction.guildId || '',
       };
+      if (serviceDto.deadline) {
+        console.log(
+          `deadline set ${serviceDto.deadline ? new Date(serviceDto.deadline).toLocaleString() : 'no deadline'}`,
+        );
+      }
 
       const createdAssignment =
         await this.assignmentService.createAssignment(serviceDto);
@@ -106,7 +111,7 @@ export class DiscordSlashCommand {
       const assignmentList = assignments
         .map(
           (assignment, index) =>
-            `${index + 1}. **${assignment.subject}** - ${assignment.priority}\n   📝 ${assignment.description || 'No description'}\n   📅 ${assignment.deadline ? assignment.deadline.toDateString() : 'No deadline'}`,
+            `${index + 1}. **${assignment.subject}** - ${assignment.priority}\n   📝 ${assignment.description || 'No description'}\n   📅 ${assignment.deadline ? new Date(assignment.deadline).toLocaleString() : 'No deadline'}`,
         )
         .join('\n\n');
 
