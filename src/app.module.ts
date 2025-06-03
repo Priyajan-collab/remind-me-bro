@@ -7,9 +7,12 @@ import { ConfigModule } from '@nestjs/config';
 import { DiscordModule } from './discord/discord.module';
 import { NecordModule } from 'necord';
 import { IntentsBitField } from 'discord.js';
+import { RemindersModule } from './reminders/reminders.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     AssignmentModule,
     ConfigModule.forRoot({
       isGlobal: true,
@@ -42,6 +45,8 @@ import { IntentsBitField } from 'discord.js';
     }),
 
     DiscordModule,
+
+    RemindersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
