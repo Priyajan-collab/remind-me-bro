@@ -22,11 +22,19 @@ export class DiscordSlashCommand {
   async addAssignment(
     @Context() [interaction]: SlashCommandContext,
     @Options()
-    { subject, description, submitTo, priority, deadline }: AddAssignmentDto,
+    {
+      subject,
+      assignmentNumber,
+      description,
+      submitTo,
+      priority,
+      deadline,
+    }: AddAssignmentDto,
   ) {
     try {
       const serviceDto: CreateAssignmentDto = {
         subject,
+        assignmentNumber,
         description,
         submitTo,
         priority,
@@ -62,14 +70,25 @@ export class DiscordSlashCommand {
   })
   async updateAssignment(
     @Context() [interaction]: SlashCommandContext,
-    @Options() { id, description, deadline }: UpdateDiscordAssignmentDto,
+    @Options()
+    {
+      subject,
+      assignmentNumber,
+      description,
+      deadline,
+    }: UpdateDiscordAssignmentDto,
   ) {
     try {
       const serviceUpdateDto: UpdateAssignmentDto = {
         description,
         deadline: deadline ? new Date(deadline) : undefined,
       };
-      await this.assignmentService.updateAssignment(id, serviceUpdateDto);
+      if (assignmentNumber === null || subject === null) {
+        throw new Error('Invalid assignmentNumber or subject name');
+      }
+
+      const filter = { subject: subject, assignmentNumber: assignmentNumber };
+      await this.assignmentService.updateAssignment(filter, serviceUpdateDto);
       await interaction.reply('✅ Assignment updated successfully!');
     } catch (error) {
       throw new Error(
@@ -84,10 +103,10 @@ export class DiscordSlashCommand {
   })
   async deleteAssignment(
     @Context() [interaction]: SlashCommandContext,
-    @Options() { id }: DeleteAssignmentDto,
+    @Options() { subject, assignmentNumber }: DeleteAssignmentDto,
   ) {
     try {
-      await this.assignmentService.deleteAssignment(id);
+      await this.assignmentService.deleteAssignment(subject, assignmentNumber);
       await interaction.reply('✅ Assignment removed successfully!');
     } catch (error) {
       throw new Error(
@@ -111,7 +130,10 @@ export class DiscordSlashCommand {
       const assignmentList = assignments
         .map(
           (assignment, index) =>
-            `${index + 1}. **${assignment.subject}** - ${assignment.priority}\n   📝 ${assignment.description || 'No description'}\n   📅 ${assignment.deadline ? new Date(assignment.deadline).toLocaleString() : 'No deadline'}`,
+            `${index + 1}. ${assignment.subject} - 
+          ${assignment.priority}\n  
+           📝 ${assignment.description || 'No description'}\n  
+           📅 ${assignment.deadline ? new Date(assignment.deadline).toLocaleString() : 'No deadline'}`,
         )
         .join('\n\n');
 

@@ -1,12 +1,19 @@
-import { StringOption } from 'necord';
+import { StringOption, NumberOption } from 'necord';
 
 export class UpdateDiscordAssignmentDto {
   @StringOption({
-    name: 'id',
-    description: 'id of the assignment',
-    required: false,
+    name: 'subject',
+    description: 'Subject to delete',
+    required: true,
   })
-  id: string;
+  subject: string;
+
+  @NumberOption({
+    name: 'assignment-number',
+    description: 'assignmentNumber to be delted',
+    required: true,
+  })
+  assignmentNumber: number;
 
   @StringOption({
     name: 'description',

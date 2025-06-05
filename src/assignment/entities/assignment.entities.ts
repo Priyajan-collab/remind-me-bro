@@ -6,6 +6,9 @@ export class Assignment {
   @Prop({ required: true })
   subject: string;
 
+  @Prop({ required: true })
+  assignmentNumber: number;
+
   @Prop({ required: false })
   description?: string;
 

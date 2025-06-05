@@ -1,13 +1,22 @@
-import { IsDateString, IsEnum, IsOptional, IsString } from 'class-validator';
+import {
+  IsDateString,
+  IsEnum,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { ASSIGNMENT_PRIORITY } from 'src/types/assignment-priority.enums';
 
 export class CreateAssignmentDto {
   @IsString()
   subject: string;
 
+  @IsNumber()
+  assignmentNumber: number;
+
   @IsOptional()
   @IsString()
-  description: string;
+  description?: string;
 
   @IsString()
   submitTo: string;
