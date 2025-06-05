@@ -130,10 +130,12 @@ export class DiscordSlashCommand {
       const assignmentList = assignments
         .map(
           (assignment, index) =>
-            `${index + 1}. ${assignment.subject} - 
-          ${assignment.priority}\n  
-           📝 ${assignment.description || 'No description'}\n  
-           📅 ${assignment.deadline ? new Date(assignment.deadline).toLocaleString() : 'No deadline'}`,
+            `        :pushpin: **${assignment.subject}** 
+
+         :id:  **assignmentNumber**:  ${assignment.assignmentNumber}          
+         :zap: **priority**:  ${assignment.priority}\n  
+           📝  **description**: ${assignment.description || 'No description'}\n  
+           📅  **deadline**: ${assignment.deadline ? new Date(assignment.deadline).toLocaleString() : 'No deadline'}`,
         )
         .join('\n\n');
 
