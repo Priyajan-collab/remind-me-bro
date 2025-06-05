@@ -54,7 +54,7 @@ export class DiscordSlashCommand {
 
       await this.discordService.sendToChannel(
         process.env.TEST_CHANNEL ?? '', // keep this in env
-        `📝 New assignment: **${createdAssignment.subject}** by ${interaction.user.username}`,
+        `📝 New assignment: **${createdAssignment.subject}** `,
       );
     } catch (error) {
       await interaction.reply('❌ Failed to add assignment!');
@@ -129,7 +129,7 @@ export class DiscordSlashCommand {
 
       const assignmentList = assignments
         .map(
-          (assignment, index) =>
+          (assignment) =>
             `        :pushpin: **${assignment.subject}** 
 
          :id:  **assignmentNumber**:  ${assignment.assignmentNumber}          
