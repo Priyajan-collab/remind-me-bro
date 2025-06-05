@@ -1,11 +1,7 @@
-import { IsDateString, IsOptional, IsString } from 'class-validator';
+import { CreateAssignmentDto } from './create-assignment.dto';
+import { PickType } from '@nestjs/mapped-types';
 
-export class UpdateAssignmentDto {
-  @IsOptional()
-  @IsString()
-  description?: string;
-
-  @IsOptional()
-  @IsDateString()
-  deadline?: Date;
-}
+export class UpdateAssignmentDto extends PickType(CreateAssignmentDto, [
+  'description',
+  'deadline',
+]) {}

@@ -1,10 +1,17 @@
-import { StringOption } from 'necord';
+import { NumberOption, StringOption } from 'necord';
 
 export class DeleteAssignmentDto {
   @StringOption({
-    name: 'id',
-    description: 'Assignment ID to delete',
+    name: 'subject',
+    description: 'Subject to delete',
     required: true,
   })
-  id: string;
+  subject: string;
+
+  @NumberOption({
+    name: 'assignment-number',
+    description: 'assignmentNumber to be delted',
+    required: true,
+  })
+  assignmentNumber: number;
 }

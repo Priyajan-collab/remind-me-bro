@@ -7,6 +7,7 @@ import { ASSIGNMENT_PRIORITY } from 'src/types/assignment-priority.enums';
 
 interface IAssignmentDocument {
   subject: string;
+  assignmentNumber: number;
   priority: ASSIGNMENT_PRIORITY;
   description?: string;
   submitTo: string;

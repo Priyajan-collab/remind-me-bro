@@ -7,6 +7,7 @@ import {
 } from './interfaces/assignment.interface';
 import { CreateAssignmentDto } from './dto/create-assignment.dto';
 import { UpdateAssignmentDto } from './dto/update-assignment.dto';
+import { filter } from 'src/types/interface/filter.interface';
 @Injectable()
 export class AssignmentService {
   constructor(
@@ -64,15 +65,23 @@ export class AssignmentService {
     }
   }
 
-  async deleteAssignment(id: string): Promise<IAssignmentDocument | null> {
+  async deleteAssignment(
+    subject: string,
+    assignmentNumber: number,
+  ): Promise<IAssignmentDocument | null> {
     try {
-      if (!id) {
-        throw new Error('An id is required to delete an assignment');
+      console.log(subject, assignmentNumber);
+      if (assignmentNumber === null || subject === null) {
+        throw new Error('Invalid assignmentNumber or subject name');
       }
-      const removedAssignment =
-        await this.assignmentModel.findByIdAndDelete(id);
+      const filter = { subject: subject, assignmentNumber: assignmentNumber };
+      const options = {};
+      const removedAssignment = await this.assignmentModel.findOneAndDelete(
+        filter,
+        options,
+      );
       if (!removedAssignment) {
-        throw new Error('Error assignment does not exists:');
+        throw new Error('Error assignment doeis not exists:');
       }
       return removedAssignment;
     } catch (error) {
@@ -83,19 +92,13 @@ export class AssignmentService {
   }
 
   async updateAssignment(
-    id: string,
+    filter: filter,
     updateAssignment: UpdateAssignmentDto,
   ): Promise<IAssignmentDocument | null> {
     try {
-      if (!id) {
-        throw new Error('An id is required to update single assignment');
-      }
-      const updatedAssignment = await this.assignmentModel.findByIdAndUpdate(
-        id,
-
+      const updatedAssignment = await this.assignmentModel.findOneAndUpdate(
+        filter,
         updateAssignment,
-
-        { new: true },
       );
       if (!updatedAssignment) {
         throw new Error('Assignment does not exist');

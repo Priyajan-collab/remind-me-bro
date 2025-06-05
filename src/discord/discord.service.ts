@@ -14,9 +14,7 @@ export class DiscordService {
 **Priority:** ${assignment.priority}
 ---`;
   }
-  private formatMultipleAssignments(
-    assignments: IAssignmentDocument[],
-  ): string {
+  formatMultipleAssignments(assignments: IAssignmentDocument[]): string {
     if (assignments.length === 0) {
       return '📝 No assignments found!';
     }

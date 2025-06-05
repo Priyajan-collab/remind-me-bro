@@ -1,4 +1,4 @@
-import { StringOption } from 'necord';
+import { NumberOption, StringOption } from 'necord';
 import { ASSIGNMENT_PRIORITY } from 'src/types/assignment-priority.enums';
 
 export class AddAssignmentDto {
@@ -8,6 +8,13 @@ export class AddAssignmentDto {
     required: true,
   })
   subject: string;
+
+  @NumberOption({
+    name: 'assignment-number',
+    description: 'assignment number',
+    required: true,
+  })
+  assignmentNumber: number;
 
   @StringOption({
     name: 'submit-to',
