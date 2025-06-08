@@ -24,11 +24,11 @@ export class DiscordSlashCommand {
     @Options()
     {
       subject,
-      assignmentNumber,
       description,
+      deadline,
       submitTo,
       priority,
-      deadline,
+      assignmentNumber,
     }: AddAssignmentDto,
   ) {
     try {
@@ -50,14 +50,20 @@ export class DiscordSlashCommand {
 
       const createdAssignment =
         await this.assignmentService.createAssignment(serviceDto);
-      await interaction.reply('✅ Assignment added successfully!');
+      await interaction.reply({
+        content: '✅ Assignment added successfully!',
+        flags: 64,
+      });
 
       await this.discordService.sendToChannel(
         process.env.TEST_CHANNEL ?? '', // keep this in env
         `📝 New assignment: **${createdAssignment.subject}** `,
       );
     } catch (error) {
-      await interaction.reply('❌ Failed to add assignment!');
+      await interaction.reply({
+        content: '❌ Failed to add assignment!',
+        flags: 64,
+      });
       if (error instanceof Error) {
         throw new Error(`Failed to add assignment: ${error.message}`);
       }
@@ -139,7 +145,10 @@ export class DiscordSlashCommand {
         )
         .join('\n\n');
 
-      await interaction.reply(`📋 **Your Assignments:**\n\n${assignmentList}`);
+      await interaction.reply({
+        content: `📋 **Your Assignments:**\n\n${assignmentList}`,
+        flags: 64,
+      });
     } catch (error) {
       throw new Error(`Failed to fetch assignment ${(error as Error).message}`);
     }

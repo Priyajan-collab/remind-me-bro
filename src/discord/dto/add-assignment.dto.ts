@@ -9,12 +9,19 @@ export class AddAssignmentDto {
   })
   subject: string;
 
-  @NumberOption({
-    name: 'assignment-number',
-    description: 'assignment number',
+  @StringOption({
+    name: 'description',
+    description: 'description of the assignment',
     required: true,
   })
-  assignmentNumber: number;
+  description: string;
+
+  @StringOption({
+    name: 'deadline',
+    description: 'deadline date ',
+    required: true,
+  })
+  deadline?: string;
 
   @StringOption({
     name: 'submit-to',
@@ -34,17 +41,10 @@ export class AddAssignmentDto {
   })
   priority: string;
 
-  @StringOption({
-    name: 'description',
-    description: 'description of the assignment',
-    required: false,
+  @NumberOption({
+    name: 'assignment-number',
+    description: 'assignment number',
+    required: true,
   })
-  description: string;
-
-  @StringOption({
-    name: 'deadline',
-    description: 'deadline date ',
-    required: false,
-  })
-  deadline?: string;
+  assignmentNumber: number;
 }
