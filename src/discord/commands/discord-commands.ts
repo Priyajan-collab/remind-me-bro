@@ -129,7 +129,10 @@ export class DiscordSlashCommand {
     try {
       const assignments = await this.assignmentService.fetchAllAssignments();
       if (assignments.length === 0) {
-        await interaction.reply('📋 No assignments found!');
+        await interaction.reply({
+          content: '📋 No assignments found!',
+          flags: 64,
+        });
         return;
       }
 
