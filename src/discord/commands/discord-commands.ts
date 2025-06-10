@@ -7,6 +7,7 @@ import { UpdateDiscordAssignmentDto } from '../dto/discord-update-assignment.dto
 import { Injectable } from '@nestjs/common';
 import { DeleteAssignmentDto } from '../dto/discord-delete-assignment.dto';
 import { DiscordService } from '../discord.service';
+import { formatIsoToNepaliDate, timeRemaining } from 'src/utils/discord.utils';
 
 @Injectable()
 export class DiscordSlashCommand {
@@ -55,9 +56,18 @@ export class DiscordSlashCommand {
         flags: 64,
       });
 
+      const timeRemainingString = timeRemaining(createdAssignment.deadline);
+
+      let content =
+        ` @everyone\n**Assignment Details**\n` +
+        `**Subject**: ${createdAssignment.subject}\n` +
+        `**Deadline**: ${formatIsoToNepaliDate(createdAssignment.deadline!)}\n` +
+        `**Time Remaining**: ${timeRemainingString}\n` +
+        `**Details**: ${createdAssignment.description || 'No additional details provided.'}`;
+
       await this.discordService.sendToChannel(
-        process.env.TEST_CHANNEL ?? '', // keep this in env
-        `📝 New assignment: **${createdAssignment.subject}** `,
+        process.env.TEST_CHANNEL ?? '',
+        `${content}`,
       );
     } catch (error) {
       await interaction.reply({
@@ -139,7 +149,7 @@ export class DiscordSlashCommand {
       const assignmentList = assignments
         .map(
           (assignment) =>
-            `        :pushpin: **${assignment.subject}** 
+            `:pushpin: **${assignment.subject}** 
 
          :id:  **assignmentNumber**:  ${assignment.assignmentNumber}          
          :zap: **priority**:  ${assignment.priority}\n  
