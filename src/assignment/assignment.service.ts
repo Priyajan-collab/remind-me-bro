@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Assignment } from './entities/assignment.entities';
 import {
   IAssignmentDocument,
   IAssignmentModel,
@@ -8,6 +7,7 @@ import {
 import { CreateAssignmentDto } from './dto/create-assignment.dto';
 import { UpdateAssignmentDto } from './dto/update-assignment.dto';
 import { filter } from 'src/types/interface/filter.interface';
+import { Assignment } from 'src/entities/assignment.entities';
 @Injectable()
 export class AssignmentService {
   constructor(

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AssignmentService } from './assignment.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Assignment, assignmentSchema } from './entities/assignment.entities';
+import { Assignment, assignmentSchema } from 'src/entities/assignment.entities';
 
 @Module({
   imports: [
