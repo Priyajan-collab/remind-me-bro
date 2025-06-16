@@ -140,26 +140,27 @@ export class DiscordSlashCommand {
       const assignments = await this.assignmentService.fetchAllAssignments();
       if (assignments.length === 0) {
         await interaction.reply({
-          content: '📋 No assignments found!',
+          content: 'Assignment xaina moj gara🥳',
           flags: 64,
         });
         return;
       }
 
       const assignmentList = assignments
-        .map(
-          (assignment) =>
-            `:pushpin: **${assignment.subject}** 
-
-         :id:  **assignmentNumber**:  ${assignment.assignmentNumber}          
-         :zap: **priority**:  ${assignment.priority}\n  
-           📝  **description**: ${assignment.description || 'No description'}\n  
-           📅  **deadline**: ${assignment.deadline ? new Date(assignment.deadline).toLocaleString() : 'No deadline'}`,
-        )
+        .map((a, idx) => {
+          return [
+            `__**Assignment ${idx + 1}**__`,
+            `• **Subject** : ${a.subject}`,
+            `• **Priority** : ${a.priority.trim()}`,
+            `• **Deadline** : ${formatIsoToNepaliDate(a.deadline!)}`,
+            `• **Time Remaining**: ${timeRemaining(a.deadline)}`,
+            `• **Details** : ${a.description || '—'}`,
+          ].join('\n');
+        })
         .join('\n\n');
 
       await interaction.reply({
-        content: `📋 **Your Assignments:**\n\n${assignmentList}`,
+        content: `**Your Assignments:**\n\n${assignmentList}`,
         flags: 64,
       });
     } catch (error) {
