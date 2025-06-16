@@ -1,11 +1,16 @@
 import { NumberOption, StringOption } from 'necord';
 import { ASSIGNMENT_PRIORITY } from 'src/types/assignment-priority.enums';
+import { SUBJECTS } from 'src/types/assignment-subject.enums';
 
 export class AddAssignmentDto {
   @StringOption({
     name: 'subject',
     description: 'subject name',
     required: true,
+    choices: Object.values(SUBJECTS).map((values) => ({
+      name: values,
+      value: values,
+    })),
   })
   subject: string;
 

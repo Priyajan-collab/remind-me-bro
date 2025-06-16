@@ -34,7 +34,11 @@ export class AssignmentService {
    */
   async fetchAllAssignments(): Promise<IAssignmentDocument[]> {
     try {
-      const assignments = await this.assignmentModel.find();
+      const today = new Date();
+      const assignments = await this.assignmentModel.find({
+        deadline: { $gte: today },
+      });
+
       return assignments;
     } catch (error) {
       throw new Error(
