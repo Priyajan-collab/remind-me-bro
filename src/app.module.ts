@@ -9,6 +9,7 @@ import { NecordModule } from 'necord';
 import { IntentsBitField } from 'discord.js';
 import { RemindersModule } from './reminders/reminders.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { GetAnswerModule } from './get-answer/get-answer.module';
 
 @Module({
   imports: [
@@ -47,6 +48,8 @@ import { ScheduleModule } from '@nestjs/schedule';
     DiscordModule,
 
     RemindersModule,
+
+    GetAnswerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
