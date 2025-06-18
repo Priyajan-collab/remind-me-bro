@@ -5,7 +5,6 @@ export async function pdfToPic(file: Buffer): Promise<BufferResponse[]> {
   try {
     const options = {
       density: 100,
-      saveFilename: 'untitled',
       format: 'png',
       width: 600,
       height: 600,
